@@ -27,8 +27,8 @@
                 <label for="live">Live content: </label>
                 <g:checkBox name="live" checked="${live}" value="${live}" />
 
-                <g:link class="publish-page-content" name="publish-page-content" action="publish" id="${currentPageId}"><g:message code="default.publish.label" /></g:link>
             </div>
+            <g:link class="publish-page-content" name="publish-page-content" action="publish" id="${currentPageId}"><g:message code="default.publish.label" /></g:link>
 
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -56,7 +56,7 @@
                             <td><g:link action="show" id="${dynamicContentInstance.id}">${fieldValue(bean: dynamicContentInstance, field: "name")}</g:link></td>
                         </g:if>
 
-						<td>${fieldValue(bean: dynamicContentInstance, field: "value")}</td>
+						<td>${dynamicContentInstance.value.trimLength(100)}</td>
 					
 					</tr>
 				</g:each>

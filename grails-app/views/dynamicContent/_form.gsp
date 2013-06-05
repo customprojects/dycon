@@ -36,6 +36,6 @@
 		<g:message code="dynamicContent.value.label" default="Value" />
 		
 	</label>
-	<g:textField name="value" value="${dynamicContentInstance?.value}" />
+	<g:textArea name="value" value="${dynamicContentInstance?.value}" />
 </div>
 

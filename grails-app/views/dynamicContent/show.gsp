@@ -55,9 +55,7 @@
                 <g:if test="${dynamicContentInstance?.value}">
 				<li class="fieldcontain">
 					<span id="value-label" class="property-label"><g:message code="dynamicContent.value.label" default="Value" /></span>
-					
-						<span class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></span>
-					
+					<span class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></span>
 				</li>
 				</g:if>
 			
