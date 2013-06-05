@@ -594,22 +594,3 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
-
-
-#list-dynamicContent-selection{
-    margin-left: 20px;
-
-}
-
-.publish-page-content{
-    background-color: #CCCCCC;
-    border-color: #666666;
-    border-radius: 3px 3px 3px 3px;
-    border-style: solid;
-    border-width: 1px;
-    float: right;
-    margin-bottom: 9px;
-    margin-right: 69px;
-    padding: 5px;
-    text-decoration: none;
-}
