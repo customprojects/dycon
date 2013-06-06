@@ -6,6 +6,9 @@ class DynamicContentController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+
+    def dynamicContentService
+
     def index() {
         redirect(action: "list", params: params)
     }
@@ -126,25 +129,9 @@ class DynamicContentController {
 
     def publish(Integer id){
 
-        def page = DynamicContentPage.findById(id)
 
-        if(page){
-            def content = DynamicContent.findAllByLiveAndPage(false,page)
+        dynamicContentService.publish(id)
 
-            content.each {it ->
-
-                def liveContent = DynamicContent.findByLiveAndPageAndName(true,page,it.name)
-
-                if(liveContent){
-                    liveContent.value = it.value
-                }else{
-                    liveContent = new DynamicContent(live:true,page: page, name: it.name,value:it.value)
-                }
-
-                liveContent.save(flush: true)
-
-            }
-        }
         redirect(action: "list",params: [pageId: id])
     }
 }

@@ -4,7 +4,6 @@ class DynamicContentService {
 
     def getPageContent(String pageName, Boolean live) {
 
-
         def contentMap = [:]
 
         def pages = DynamicContentPage.findAllByName(pageName)
@@ -17,5 +16,43 @@ class DynamicContentService {
 
         return contentMap
 
+    }
+
+    def publish(Integer id){
+
+        def page = DynamicContentPage.findById(id)
+
+        if(page){
+
+            def content = DynamicContent.findAllByLiveAndPage(false,page)
+
+
+            content.each {it ->
+
+                def liveContent = DynamicContent.findByLiveAndPageAndName(true,page,it.name)
+
+                if(liveContent){
+                    liveContent.value = it.value
+                }else{
+                    liveContent = new DynamicContent(live:true,page: page, name: it.name,value:it.value)
+                }
+
+                liveContent.save(flush: true)
+
+            }
+
+            //clear live entries from page which are no longer required
+            def allLiveContent = DynamicContent.findAllByLiveAndPage(true,page)
+            allLiveContent.each {it ->
+
+                def nonLiveContent = DynamicContent.findByLiveAndPageAndName(false,page,it.name)
+
+                if(!nonLiveContent){
+                    it.delete()
+                }
+
+            }
+
+        }
     }
 }

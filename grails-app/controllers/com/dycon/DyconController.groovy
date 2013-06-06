@@ -1,6 +1,6 @@
 package com.dycon
 
-class DynconController {
+class DyconController {
 
     def index() {}
 }
