@@ -29,11 +29,10 @@
 	<body>
 
 
-		<div id="grailsLogo" role="banner"><a href="/">DyCon</a></div>
+		<div id="grailsLogo" role="banner"><a href="/dyncon">DyCon - Simple Content Editor</a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-		<g:javascript library="application"/>
 		<r:layoutResources />
 	</body>
 </html>

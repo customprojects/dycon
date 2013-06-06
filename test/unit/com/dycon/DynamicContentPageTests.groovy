@@ -12,6 +12,6 @@ import org.junit.*
 class DynamicContentPageTests {
 
     void testSomething() {
-       fail "Implement me"
+      //
     }
 }

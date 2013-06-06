@@ -14,12 +14,13 @@ grails.project.dependency.resolution = {
         grailsCentral()
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()
+        mavenLocal()
+        mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        //mavenRepo "http://nexus.skynewsonline.bskyb.com/content/groups/public"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -30,13 +31,32 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":hibernate:$grailsVersion"
 
+
         runtime ":jquery:1.7.2"
         runtime ":resources:1.1.6"
 
-        build(":tomcat:$grailsVersion",
-              ":release:2.2.0",
-              ":rest-client-builder:1.0.3") {
+        build(":tomcat:$grailsVersion") {
+            export = false
+        }
+
+
+        build ':release:2.2.1', ':rest-client-builder:1.0.3', {
             export = false
         }
     }
 }
+
+grails.plugin.repos.distribution.myRepository = "http://nexus.skynewsonline.bskyb.com/content/groups/public/"
+
+/*grails.project.dependency.distribution = {
+    String serverRoot = 'http://nexus.skynewsonline.bskyb.com'
+    remoteRepository(id: 'internalPluginSnapshots',
+            url: serverRoot + '/content/groups/public/') {
+        authentication username: 'admin', password: 'admin123'
+    }
+}
+remoteRepository(id: 'internalPluginReleases',
+        url: serverRoot + '/content/groups/public/') {
+    authentication username: 'admin', password: 'admin123'
+}*/
+
