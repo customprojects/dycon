@@ -1,4 +1,7 @@
+.idea
+*.iml
 *.iws
+*.ipr
 *Db.properties
 *Db.script
 .settings
