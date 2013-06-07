@@ -622,10 +622,10 @@ a.skip {
 
 #au-imageuploader{
     display: inline-block;
-    height: 33px;
+    height: 27px;
     overflow: hidden;
     position: relative;
-    top: 15px;
+    top: 8px;
 }
 
 #au-imageuploader .qq-upload-button {

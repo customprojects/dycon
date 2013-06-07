@@ -22,6 +22,15 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list dynamicContentImage">
+
+                <g:if test="${dynamicContentImageInstance?.page}">
+                    <li class="fieldcontain">
+                        <span id="page-label" class="property-label"><g:message code="dynamicContentImage.page.label" default="Page" /></span>
+
+                        <span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentImageInstance?.page?.id}">${dynamicContentImageInstance?.page?.name?.encodeAsHTML()}</g:link></span>
+
+                    </li>
+                </g:if>
 			
 				<g:if test="${dynamicContentImageInstance?.name}">
 				<li class="fieldcontain">
@@ -40,25 +49,7 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${dynamicContentImageInstance?.live}">
-				<li class="fieldcontain">
-					<span id="live-label" class="property-label"><g:message code="dynamicContentImage.live.label" default="Live" /></span>
-					
-						<span class="property-value" aria-labelledby="live-label"><g:formatBoolean boolean="${dynamicContentImageInstance?.live}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${dynamicContentImageInstance?.page}">
-				<li class="fieldcontain">
-					<span id="page-label" class="property-label"><g:message code="dynamicContentImage.page.label" default="Page" /></span>
-					
-						<span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentImageInstance?.page?.id}">${dynamicContentImageInstance?.page?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
+
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

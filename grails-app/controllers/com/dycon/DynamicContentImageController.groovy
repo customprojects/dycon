@@ -25,7 +25,7 @@ class DynamicContentImageController {
     }
 
     def create() {
-        [dynamicContentImageInstance: new DynamicContentImage(params)]
+        [dynamicContentImageInstance: new DynamicContentImage(params),mode:"create"]
     }
 
     def save() {
@@ -58,7 +58,7 @@ class DynamicContentImageController {
             return
         }
 
-        [dynamicContentImageInstance: dynamicContentImageInstance]
+        [dynamicContentImageInstance: dynamicContentImageInstance,mode:"edit"]
     }
 
     def update(Long id, Long version) {
