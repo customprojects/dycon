@@ -19,9 +19,8 @@
 
         <g:javascript library="jquery" plugin="jquery"/>
 
-
-  %{--    <r:require modules="dycon_core"/>
---}%		<r:layoutResources />
+        %{--    <r:require modules="dycon_core"/>
+      --}%		<r:layoutResources />
 
         <g:javascript src="dycon.js"  />
 

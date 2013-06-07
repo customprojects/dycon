@@ -619,3 +619,20 @@ a.skip {
     padding: 5px;
     text-decoration: none;
 }
+
+#au-imageuploader{
+    display: inline-block;
+    height: 33px;
+    overflow: hidden;
+    position: relative;
+    top: 15px;
+}
+
+#au-imageuploader .qq-upload-button {
+    padding: 3px 0;
+}
+
+#imageFile{
+
+    width: 350px;
+}

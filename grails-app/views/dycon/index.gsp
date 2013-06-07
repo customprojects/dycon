@@ -17,6 +17,7 @@
         <ul>
             <li><g:link controller="dynamicContentPage" action="list">Pages</g:link></li>
             <li><g:link controller="dynamicContent" action="list">Content</g:link></li>
+            <li><g:link controller="dynamicContentImage" action="list">Images</g:link></li>
         </ul>
     </div>
 </body>

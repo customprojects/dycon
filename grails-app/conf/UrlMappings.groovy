@@ -7,7 +7,7 @@ class UrlMappings {
 			}
 		}
 
-		"/"(view:"/index")
+		"/"(view:"dycon/index")
 		"500"(view:'/error')
 	}
 }
