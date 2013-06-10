@@ -607,7 +607,7 @@ a.skip {
 
 }
 
-.publish-page-content{
+.publish-page-content, .publish-page-images{
     background-color: #CCCCCC;
     border-color: #666666;
     border-radius: 3px 3px 3px 3px;

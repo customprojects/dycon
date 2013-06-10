@@ -16,7 +16,6 @@ class DynamicContentController {
 
     def list(Integer max,Boolean live,Integer pageId) {
 
-        println params
 
         params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false

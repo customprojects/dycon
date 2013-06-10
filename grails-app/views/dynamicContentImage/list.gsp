@@ -1,5 +1,5 @@
 
-<%@ page import="com.dycon.DynamicContentImage" %>
+<%@ page import="com.dycon.DynamicContentPage; com.dycon.DynamicContentImage" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,6 +17,18 @@
 		</div>
 		<div id="list-dynamicContentImage" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <div id="list-dynamicContent-selection">
+                <label for="pageName">Choose Page: </label>
+                <g:select name="pageName"
+                          from="${DynamicContentPage.list()}"
+                          value="${currentPageId}"
+                          optionValue="name"
+                          optionKey="id" />
+                <label for="live">Live content: </label>
+                <g:checkBox name="live" checked="${live}" value="${live}" />
+            </div>
+            <g:link class="publish-page-images" name="publish-page-images" action="publish" id="${currentPageId}"><g:message code="default.publish-images.label" /></g:link>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -44,7 +56,7 @@
 					
 						<td><g:formatBoolean boolean="${dynamicContentImageInstance.live}" /></td>
 					
-						<td>${fieldValue(bean: dynamicContentImageInstance, field: "page")}</td>
+						<td>${dynamicContentImageInstance?.page?.name?.encodeAsHTML()}</td>
 					
 					</tr>
 				</g:each>

@@ -13,15 +13,41 @@ class DynamicContentImageController {
 
     AjaxUploaderService ajaxUploaderService
 
+    def dynamicContentService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
+    def list(Integer max,Boolean live,Integer pageId) {
+
+
+        println params
+
         params.max = Math.min(max ?: 10, 100)
-        [dynamicContentImageInstanceList: DynamicContentImage.list(params), dynamicContentImageInstanceTotal: DynamicContentImage.count()]
+        params.live = live ? true : false
+
+        def page
+        if(!pageId){
+            def pages = DynamicContentPage.findAll()
+            if(pages?.size() > 0){
+                page = pages[0]
+            }
+        }else{
+            page = DynamicContentPage.findById(pageId)
+        }
+
+        def images = []
+        def currentPageId
+        if(page){
+            currentPageId = page.id
+            images = DynamicContentImage.findAllByLiveAndPage(params.live,page,[max: params.max])
+        }
+
+        [dynamicContentImageInstanceList: images, dynamicContentImageInstanceTotal: images.size(), currentPageId: currentPageId, live: params.live]
+
     }
 
     def create() {
@@ -161,5 +187,13 @@ class DynamicContentImageController {
             uploaded = File.createTempFile('grails', 'ajaxupload')
         }
         return uploaded
+    }
+
+
+    def publish(Integer id){
+
+        dynamicContentService.publishImages(id)
+
+        redirect(action: "list",params: [pageId: id])
     }
 }
