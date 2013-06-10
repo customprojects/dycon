@@ -12,8 +12,13 @@ class DyconTagLib {
         if(attrs.name){
             def pageContent = dynamicContentService.getPageContent("Home",true)
             request.setAttribute("dycon-pageContent",pageContent)
+            def pageImages = dynamicContentService.getPageImages("Home",true)
+            request.setAttribute("dycon-pageImages",pageImages)
+
         }else{
             request.setAttribute("dycon-pageContent",[:])
+            request.setAttribute("dycon-pageImages",[:])
+
         }
 
     }
@@ -21,21 +26,39 @@ class DyconTagLib {
     def content = {  attrs ->
 
         if(!request.getAttribute("dycon-pageContent")){
-            out << "content tag - no page defined"
+            out << "content tag - no page defined or no content defined for page"
             return
         }
 
         def pageContent = request.getAttribute("dycon-pageContent")
         def value = "content tag - no name defined"
         if(attrs.name){
-            value = pageContent[attrs.name]?:attrs.default?:"value not found"
+            value = pageContent[attrs.name]?pageContent[attrs.name].value:attrs.default?:"value not found"
         }
 
         out << value
 
     }
 
+    def image = {  attrs ->
 
+
+        println "in image tag"
+
+        if(!request.getAttribute("dycon-pageImages")){
+            out << "image tag - no page defined or no images defined for page"
+            return
+        }
+
+        def pageImages = request.getAttribute("dycon-pageImages")
+        def value = "image tag - no name defined"
+        if(attrs.name){
+            value = pageImages[attrs.name]? grailsApplication.config.dycon.imageWebPath + "/" + pageImages[attrs.name]:attrs.default?:"value not found"
+        }
+
+        out << value
+
+    }
 
 
 

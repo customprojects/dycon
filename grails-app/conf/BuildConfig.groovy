@@ -35,7 +35,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.7.2"
         runtime ":resources:1.1.6"
 
-        compile ":ajax-uploader:1.1"
+        runtime ":ajax-uploader:1.1"
 
         build(":tomcat:$grailsVersion") {
             export = false

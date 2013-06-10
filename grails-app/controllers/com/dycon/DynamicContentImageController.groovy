@@ -181,8 +181,8 @@ class DynamicContentImageController {
         def newFileName = uuid.replaceAll("-","") + extension
 
         File uploaded
-        if (grailsApplication.config.imageUpload?.containsKey('directory')) {
-            uploaded = new File("${grailsApplication.config.imageUpload.directory}/${newFileName}")
+        if (grailsApplication.config.dycon?.containsKey('imageUploadDirectory')) {
+            uploaded = new File("${grailsApplication.config.dycon.imageUploadDirectory}/${newFileName}")
         } else {
             uploaded = File.createTempFile('grails', 'ajaxupload')
         }

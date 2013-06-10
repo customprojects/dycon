@@ -23,6 +23,8 @@ log4j = {
     warn   'org.mortbay.log'
 }
 
-imageUpload {
-    directory = '/tmp' // Path to where files will be uploaded
+dycon {
+    imageUploadDirectory = '/tmp' // Path to where files will be uploaded
+    imageWebPath = 'static/images'
 }
+

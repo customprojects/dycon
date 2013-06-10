@@ -10,7 +10,7 @@ class DynamicContentService {
         def page
         if(pages?.size() > 0){
             page = pages[0]
-            def content = DynamicContent.findAllByPageAndLive(page,true)
+            def content = DynamicContent.findAllByPageAndLive(page,live)
             content.each{ it -> contentMap.putAt(it.name, it.value) }
         }
 
@@ -98,5 +98,22 @@ class DynamicContentService {
             }
 
         }
+    }
+
+    def getPageImages(String pageName, boolean live) {
+
+        def imageMap = [:]
+
+        def pages = DynamicContentPage.findAllByName(pageName)
+        def page
+        if(pages?.size() > 0){
+            page = pages[0]
+            def images = DynamicContentImage.findAllByPageAndLive(page,live)
+            images.each{ it -> imageMap.putAt(it.name, it.imageFile) }
+        }
+
+        return imageMap
+
+
     }
 }
