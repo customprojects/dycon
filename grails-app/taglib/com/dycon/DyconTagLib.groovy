@@ -28,11 +28,16 @@ class DyconTagLib {
     def showLiveContent(HttpServletRequest request){
 
 
+
+
         if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
             return true
         }
 
-        return !(request.getRequestURI().contains(grailsApplication.config.dycon.previewDomain))
+
+        println "Preview domain ${grailsApplication.config.dycon.previewDomain}"
+
+        return !(request.getRequestURL().contains(grailsApplication.config.dycon.previewDomain))
     }
 
 

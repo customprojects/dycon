@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class DynamicContentPageController {
 
+    def grailsApplication
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -97,6 +99,25 @@ class DynamicContentPageController {
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'dynamicContentPage.label', default: 'DynamicContentPage'), id])
             redirect(action: "show", id: id)
+        }
+    }
+
+
+    def preview(Long id){
+
+        def page = DynamicContentPage.get(id)
+
+        if(!page){
+            render (status: 404, 'text': 'Page not found')
+        }else{
+
+            println "Preview domain in controller - ${grailsApplication.config.dycon.previewDomain}"
+
+            if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
+                render (status: 404, 'text': 'Preview URL not configured')
+            }else{
+                redirect(url: "http://${grailsApplication.config.dycon.previewDomain}/${page.path}")
+            }
         }
     }
 }

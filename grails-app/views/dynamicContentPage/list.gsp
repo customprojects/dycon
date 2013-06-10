@@ -26,6 +26,8 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'dynamicContentPage.name.label', default: 'Name')}" />
 					
+						<g:sortableColumn property="path" title="${message(code: 'dynamicContentPage.path.label', default: 'Path')}" />
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -33,6 +35,8 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${dynamicContentPageInstance.id}">${fieldValue(bean: dynamicContentPageInstance, field: "name")}</g:link></td>
+					
+						<td>${fieldValue(bean: dynamicContentPageInstance, field: "path")}</td>
 					
 					</tr>
 				</g:each>

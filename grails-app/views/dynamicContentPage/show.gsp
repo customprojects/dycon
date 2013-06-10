@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${dynamicContentPageInstance?.path}">
+				<li class="fieldcontain">
+					<span id="path-label" class="property-label"><g:message code="dynamicContentPage.path.label" default="Path" /></span>
+					
+						<span class="property-value" aria-labelledby="path-label"><g:fieldValue bean="${dynamicContentPageInstance}" field="path"/></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

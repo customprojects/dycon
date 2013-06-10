@@ -29,6 +29,7 @@
 
             </div>
             <g:link class="publish-page-content" name="publish-page-content" action="publish" id="${currentPageId}"><g:message code="default.publish.label" /></g:link>
+            <g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="default.preview.label" /></g:link>
 
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

@@ -10,3 +10,11 @@
 	<g:textField name="name" required="" value="${dynamicContentPageInstance?.name}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: dynamicContentPageInstance, field: 'path', 'error')} ">
+	<label for="path">
+		<g:message code="dynamicContentPage.path.label" default="Path" />
+		
+	</label>
+	<g:textField name="path" value="${dynamicContentPageInstance?.path}"/>
+</div>
+

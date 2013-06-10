@@ -9,150 +9,147 @@ import grails.test.mixin.*
 @Mock(DynamicContentPage)
 class DynamicContentPageControllerTests {
 
-    void testSomething(){}
+    def populateValidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
+    }
 
+    void testIndex() {
+        controller.index()
+        assert "/dynamicContentPage/list" == response.redirectedUrl
+    }
 
-    /*   def populateValidParams(params) {
-           assert params != null
-           // TODO: Populate valid properties like...
-           //params["name"] = 'someValidName'
-       }
+    void testList() {
 
-       void testIndex() {
-           controller.index()
-           assert "/dynamicContentPage/list" == response.redirectedUrl
-       }
+        def model = controller.list()
 
-       void testList() {
+        assert model.dynamicContentPageInstanceList.size() == 0
+        assert model.dynamicContentPageInstanceTotal == 0
+    }
 
-           def model = controller.list()
+    void testCreate() {
+        def model = controller.create()
 
-           assert model.dynamicContentPageInstanceList.size() == 0
-           assert model.dynamicContentPageInstanceTotal == 0
-       }
+        assert model.dynamicContentPageInstance != null
+    }
 
-       void testCreate() {
-           def model = controller.create()
+    void testSave() {
+        controller.save()
 
-           assert model.dynamicContentPageInstance != null
-       }
+        assert model.dynamicContentPageInstance != null
+        assert view == '/dynamicContentPage/create'
 
-       void testSave() {
-           controller.save()
+        response.reset()
 
-           assert model.dynamicContentPageInstance != null
-           assert view == '/dynamicContentPage/create'
+        populateValidParams(params)
+        controller.save()
 
-           response.reset()
+        assert response.redirectedUrl == '/dynamicContentPage/show/1'
+        assert controller.flash.message != null
+        assert DynamicContentPage.count() == 1
+    }
 
-           populateValidParams(params)
-           controller.save()
+    void testShow() {
+        controller.show()
 
-           assert response.redirectedUrl == '/dynamicContentPage/show/1'
-           assert controller.flash.message != null
-           assert DynamicContentPage.count() == 1
-       }
+        assert flash.message != null
+        assert response.redirectedUrl == '/dynamicContentPage/list'
 
-       void testShow() {
-           controller.show()
+        populateValidParams(params)
+        def dynamicContentPage = new DynamicContentPage(params)
 
-           assert flash.message != null
-           assert response.redirectedUrl == '/dynamicContentPage/list'
+        assert dynamicContentPage.save() != null
 
-           populateValidParams(params)
-           def dynamicContentPage = new DynamicContentPage(params)
+        params.id = dynamicContentPage.id
 
-           assert dynamicContentPage.save() != null
+        def model = controller.show()
 
-           params.id = dynamicContentPage.id
+        assert model.dynamicContentPageInstance == dynamicContentPage
+    }
 
-           def model = controller.show()
+    void testEdit() {
+        controller.edit()
 
-           assert model.dynamicContentPageInstance == dynamicContentPage
-       }
+        assert flash.message != null
+        assert response.redirectedUrl == '/dynamicContentPage/list'
 
-       void testEdit() {
-           controller.edit()
+        populateValidParams(params)
+        def dynamicContentPage = new DynamicContentPage(params)
 
-           assert flash.message != null
-           assert response.redirectedUrl == '/dynamicContentPage/list'
+        assert dynamicContentPage.save() != null
 
-           populateValidParams(params)
-           def dynamicContentPage = new DynamicContentPage(params)
+        params.id = dynamicContentPage.id
 
-           assert dynamicContentPage.save() != null
+        def model = controller.edit()
 
-           params.id = dynamicContentPage.id
+        assert model.dynamicContentPageInstance == dynamicContentPage
+    }
 
-           def model = controller.edit()
+    void testUpdate() {
+        controller.update()
 
-           assert model.dynamicContentPageInstance == dynamicContentPage
-       }
+        assert flash.message != null
+        assert response.redirectedUrl == '/dynamicContentPage/list'
 
-       void testUpdate() {
-           controller.update()
+        response.reset()
 
-           assert flash.message != null
-           assert response.redirectedUrl == '/dynamicContentPage/list'
+        populateValidParams(params)
+        def dynamicContentPage = new DynamicContentPage(params)
 
-           response.reset()
+        assert dynamicContentPage.save() != null
 
-           populateValidParams(params)
-           def dynamicContentPage = new DynamicContentPage(params)
+        // test invalid parameters in update
+        params.id = dynamicContentPage.id
+        //TODO: add invalid values to params object
 
-           assert dynamicContentPage.save() != null
+        controller.update()
 
-           // test invalid parameters in update
-           params.id = dynamicContentPage.id
-           //TODO: add invalid values to params object
+        assert view == "/dynamicContentPage/edit"
+        assert model.dynamicContentPageInstance != null
 
-           controller.update()
+        dynamicContentPage.clearErrors()
 
-           assert view == "/dynamicContentPage/edit"
-           assert model.dynamicContentPageInstance != null
+        populateValidParams(params)
+        controller.update()
 
-           dynamicContentPage.clearErrors()
+        assert response.redirectedUrl == "/dynamicContentPage/show/$dynamicContentPage.id"
+        assert flash.message != null
 
-           populateValidParams(params)
-           controller.update()
+        //test outdated version number
+        response.reset()
+        dynamicContentPage.clearErrors()
 
-           assert response.redirectedUrl == "/dynamicContentPage/show/$dynamicContentPage.id"
-           assert flash.message != null
+        populateValidParams(params)
+        params.id = dynamicContentPage.id
+        params.version = -1
+        controller.update()
 
-           //test outdated version number
-           response.reset()
-           dynamicContentPage.clearErrors()
+        assert view == "/dynamicContentPage/edit"
+        assert model.dynamicContentPageInstance != null
+        assert model.dynamicContentPageInstance.errors.getFieldError('version')
+        assert flash.message != null
+    }
 
-           populateValidParams(params)
-           params.id = dynamicContentPage.id
-           params.version = -1
-           controller.update()
+    void testDelete() {
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/dynamicContentPage/list'
 
-           assert view == "/dynamicContentPage/edit"
-           assert model.dynamicContentPageInstance != null
-           assert model.dynamicContentPageInstance.errors.getFieldError('version')
-           assert flash.message != null
-       }
+        response.reset()
 
-       void testDelete() {
-           controller.delete()
-           assert flash.message != null
-           assert response.redirectedUrl == '/dynamicContentPage/list'
+        populateValidParams(params)
+        def dynamicContentPage = new DynamicContentPage(params)
 
-           response.reset()
+        assert dynamicContentPage.save() != null
+        assert DynamicContentPage.count() == 1
 
-           populateValidParams(params)
-           def dynamicContentPage = new DynamicContentPage(params)
+        params.id = dynamicContentPage.id
 
-           assert dynamicContentPage.save() != null
-           assert DynamicContentPage.count() == 1
+        controller.delete()
 
-           params.id = dynamicContentPage.id
-
-           controller.delete()
-
-           assert DynamicContentPage.count() == 0
-           assert DynamicContentPage.get(dynamicContentPage.id) == null
-           assert response.redirectedUrl == '/dynamicContentPage/list'
-       }
-   */}
+        assert DynamicContentPage.count() == 0
+        assert DynamicContentPage.get(dynamicContentPage.id) == null
+        assert response.redirectedUrl == '/dynamicContentPage/list'
+    }
+}
