@@ -1,5 +1,7 @@
 package com.dycon
 
+import javax.servlet.http.HttpServletRequest
+
 class DyconTagLib {
 
     def dynamicContentService
@@ -10,9 +12,9 @@ class DyconTagLib {
     def page = { attrs ->
 
         if(attrs.name){
-            def pageContent = dynamicContentService.getPageContent("Home",true)
+            def pageContent = dynamicContentService.getPageContent("Home",showLiveContent(request))
             request.setAttribute("dycon-pageContent",pageContent)
-            def pageImages = dynamicContentService.getPageImages("Home",true)
+            def pageImages = dynamicContentService.getPageImages("Home",showLiveContent(request))
             request.setAttribute("dycon-pageImages",pageImages)
 
         }else{
@@ -22,6 +24,17 @@ class DyconTagLib {
         }
 
     }
+
+    def showLiveContent(HttpServletRequest request){
+
+
+        if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
+            return true
+        }
+
+        return !(request.getRequestURI().contains(grailsApplication.config.dycon.previewDomain))
+    }
+
 
     def content = {  attrs ->
 
