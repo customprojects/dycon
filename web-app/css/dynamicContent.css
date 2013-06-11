@@ -636,3 +636,13 @@ a.skip {
 
     width: 350px;
 }
+
+.small-preview-image{
+    height:25px;
+}
+
+.large-preview-image{
+    margin-left: 227px;
+    margin-top: 10px;
+    width: 200px;
+}

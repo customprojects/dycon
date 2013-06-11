@@ -46,11 +46,17 @@
 					<span id="file-label" class="property-label"><g:message code="dynamicContentImage.file.label" default="File" /></span>
 					
 						<span class="property-value" aria-labelledby="file-label"><g:fieldValue bean="${dynamicContentImageInstance}" field="imageFile"/></span>
-					
+
 				</li>
+                <li class="fieldcontain">
+                    <img class="large-preview-image" src="http://${grailsApplication.config.dycon.previewDomain}/${grailsApplication.config.dycon.imageWebPath}/${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}"/>
+                </li>
 				</g:if>
 
-			</ol>
+
+
+            </ol>
+
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${dynamicContentImageInstance?.id}" />

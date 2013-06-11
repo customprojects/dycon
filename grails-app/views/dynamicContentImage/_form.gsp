@@ -42,8 +42,11 @@
         <uploader:onComplete>
             $('#imageFile').val(responseJSON.filename);
             $('#imageFileDisplay').html(responseJSON.filename);
+            var imagePath = 'http://${grailsApplication.config.dycon.previewDomain}${grailsApplication.config.dycon.imageWebPath}/'
+            $('.large-preview-image').attr('src',imagePath + responseJSON.filename);
         </uploader:onComplete>
      </uploader:uploader>
+     <img class="large-preview-image" src="http://${grailsApplication.config.dycon.previewDomain}/${grailsApplication.config.dycon.imageWebPath}/${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}"/>
 </div>
 
 
