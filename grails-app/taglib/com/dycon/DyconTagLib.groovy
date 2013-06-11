@@ -27,15 +27,9 @@ class DyconTagLib {
 
     def showLiveContent(HttpServletRequest request){
 
-
-
-
         if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
             return true
         }
-
-
-        println "Preview domain ${grailsApplication.config.dycon.previewDomain}"
 
         return !(request.getRequestURL().contains(grailsApplication.config.dycon.previewDomain))
     }
@@ -60,8 +54,6 @@ class DyconTagLib {
 
     def image = {  attrs ->
 
-
-        println "in image tag"
 
         if(!request.getAttribute("dycon-pageImages")){
             out << "image tag - no page defined or no images defined for page"
