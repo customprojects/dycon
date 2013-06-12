@@ -17,26 +17,21 @@ class DynamicContentImageController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
+    static defaultAction = 'list'
 
     def list(Integer max,Boolean live,Integer pageId) {
-
-
-        println params
 
         params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false
 
+        def pages = DynamicContentPage.findAll()
         def page
         if(!pageId){
-            def pages = DynamicContentPage.findAll()
-            if(pages?.size() > 0){
+            if(pages){
                 page = pages[0]
             }
         }else{
-            page = DynamicContentPage.findById(pageId)
+            page = DynamicContentPage.get(pageId)
         }
 
         def images = []
@@ -46,8 +41,7 @@ class DynamicContentImageController {
             images = DynamicContentImage.findAllByLiveAndPage(params.live,page,[max: params.max])
         }
 
-        [dynamicContentImageInstanceList: images, dynamicContentImageInstanceTotal: images.size(), currentPageId: currentPageId, live: params.live]
-
+        [dynamicContentImageInstanceList: images, dynamicContentImageInstanceTotal: images.size(), currentPageId: currentPageId, live: params.live, pages: pages]
     }
 
     def create() {
@@ -135,7 +129,6 @@ class DynamicContentImageController {
         }
     }
 
-
     def upload = {
         try {
 
@@ -148,7 +141,7 @@ class DynamicContentImageController {
             responseValue["success"] = "true"
             responseValue["filename"] = uploaded.name
 
-            println(responseValue)
+            log.debug responseValue
 
             return render(text: responseValue as JSON, contentType:'text/json')
 
@@ -156,9 +149,7 @@ class DynamicContentImageController {
 
             log.error("Failed to upload file.", e)
             return render(text: [success:false] as JSON, contentType:'text/json')
-
         }
-
     }
 
     private InputStream selectInputStream(HttpServletRequest request) {
@@ -171,24 +162,23 @@ class DynamicContentImageController {
 
     private File createTemporaryFile() {
 
-        def uuid = UUID.randomUUID() as String
+        String uuid = UUID.randomUUID()
 
-        def uploadedFileName = params.qqfile
+        String uploadedFileName = params.qqfile
         def fileParts = uploadedFileName.split("\\.")
 
-        def extension = fileParts.size() > 1 ? "." + fileParts[1] : ""
+        String extension = fileParts.size() > 1 ? "." + fileParts[1] : ""
 
-        def newFileName = uuid.replaceAll("-","") + extension
+        String newFileName = uuid.replaceAll("-","") + extension
 
         File uploaded
         if (grailsApplication.config.dycon?.containsKey('imageUploadDirectory')) {
-            uploaded = new File("${grailsApplication.config.dycon.imageUploadDirectory}/${newFileName}")
+            uploaded = new File(grailsApplication.config.dycon.imageUploadDirectory, newFileName)
         } else {
             uploaded = File.createTempFile('grails', 'ajaxupload')
         }
         return uploaded
     }
-
 
     def publish(Integer id){
 

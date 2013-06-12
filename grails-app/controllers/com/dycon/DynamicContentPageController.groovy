@@ -4,13 +4,9 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class DynamicContentPageController {
 
-    def grailsApplication
-
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
+    static defaultAction = 'list'
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -102,22 +98,22 @@ class DynamicContentPageController {
         }
     }
 
-
     def preview(Long id){
 
         def page = DynamicContentPage.get(id)
 
         if(!page){
             render (status: 404, 'text': 'Page not found')
-        }else{
-
-            println "Preview domain in controller - ${grailsApplication.config.dycon.previewDomain}"
-
-            if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
-                render (status: 404, 'text': 'Preview URL not configured')
-            }else{
-                redirect(url: "http://${grailsApplication.config.dycon.previewDomain}/${page.path}")
-            }
+            return
         }
+
+        log.debug "Preview domain in controller - ${grailsApplication.config.dycon.previewDomain}"
+
+        if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
+            render (status: 404, 'text': 'Preview URL not configured')
+            return
+        }
+
+        redirect(url: "http://${grailsApplication.config.dycon.previewDomain}/${page.path}")
     }
 }

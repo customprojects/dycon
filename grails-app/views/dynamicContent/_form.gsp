@@ -1,8 +1,4 @@
-<%@ page import="com.dycon.DynamicContent" %>
-
-
-   <g:hiddenField name="live" value="false"></g:hiddenField>
-
+<g:hiddenField name="live" value="false"></g:hiddenField>
 
 <div class="fieldcontain ${hasErrors(bean: dynamicContentInstance, field: 'page', 'error')} ">
     <g:if test="${mode == "create"}">
@@ -34,8 +30,6 @@
 <div class="fieldcontain ${hasErrors(bean: dynamicContentInstance, field: 'value', 'error')} ">
 	<label for="value">
 		<g:message code="dynamicContent.value.label" default="Value" />
-		
 	</label>
 	<g:textArea name="value" value="${dynamicContentInstance?.value}" />
 </div>
-
