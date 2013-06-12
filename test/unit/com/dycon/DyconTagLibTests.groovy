@@ -1,20 +1,15 @@
 package com.dycon
 
-import grails.test.mixin.*
+import grails.test.mixin.TestFor
 
-/**
- * See the API for {@link grails.test.mixin.web.GroovyPageUnitTestMixin} for usage instructions
- */
 @TestFor(DyconTagLib)
 class DyconTagLibTests {
-
 
     void testEmptyPageNameReturnsEmptyMap() {
 
         applyTemplate('<dycon:page/>')
         Map pageContent = request.getAttribute("dycon-pageContent")
         assertEquals(0, pageContent.size())
-
     }
 
     void testValidPageReturnsPopulatedMap(){
@@ -32,7 +27,6 @@ class DyconTagLibTests {
 
         assertEquals("image-1 value",pageImages['image-1'])
         assertEquals("image-2 value",pageImages['image-2'])
-
     }
 
     private void setUpContent() {
@@ -61,7 +55,6 @@ class DyconTagLibTests {
     }
 
     void testContentMethodWithoutCallingPageTag(){
-
          assertOutputEquals("content tag - no page defined or no content defined for page",'<dycon:content name="content-1" />')
     }
 
@@ -70,7 +63,6 @@ class DyconTagLibTests {
         setUpContent()
         applyTemplate('<dycon:page name="Home"/>')
         assertOutputEquals("content-1 value",'<dycon:content name="content-1" />')
-
     }
 
     void testImageMethodRendersCorrectValue(){
@@ -78,7 +70,5 @@ class DyconTagLibTests {
         setUpContent()
         applyTemplate('<dycon:page name="Home"/>')
         assertOutputEquals("${grailsApplication.config.dycon.imageWebPath}/image-2 value".toString(),'<dycon:image name="image-2"/>')
-
     }
-
 }

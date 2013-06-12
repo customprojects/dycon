@@ -1,5 +1,3 @@
-<%@ page import="com.dycon.DynamicContentImage" %>
-
 <g:hiddenField name="live" value="false"></g:hiddenField>
 
 <div class="fieldcontain ${hasErrors(bean: dynamicContentImageInstance, field: 'page', 'error')} ">

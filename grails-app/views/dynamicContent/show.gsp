@@ -1,5 +1,3 @@
-
-<%@ page import="com.dycon.DynamicContent" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,43 +20,32 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list dynamicContent">
-			
+
 %{--				<g:if test="${dynamicContentInstance?.live}">
 				<li class="fieldcontain">
 					<span id="live-label" class="property-label"><g:message code="dynamicContent.live.label" default="Live" /></span>
-					
-						<span class="property-value" aria-labelledby="live-label"><g:formatBoolean boolean="${dynamicContentInstance?.live}" /></span>
-					
+					<span class="property-value" aria-labelledby="live-label"><g:formatBoolean boolean="${dynamicContentInstance?.live}" /></span>
 				</li>
 				</g:if>--}%
-			
 
-			
 				<g:if test="${dynamicContentInstance?.page}">
 				<li class="fieldcontain">
 					<span id="page-label" class="property-label"><g:message code="dynamicContent.page.label" default="Page" /></span>
-					
-						<span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentInstance?.page?.id}">${dynamicContentInstance?.page?.name?.encodeAsHTML()}</g:link></span>
-					
+					<span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentInstance?.page?.id}">${dynamicContentInstance?.page?.name?.encodeAsHTML()}</g:link></span>
 				</li>
 				</g:if>
-
-                <g:if test="${dynamicContentInstance?.name}">
-                    <li class="fieldcontain">
-                        <span id="name-label" class="property-label"><g:message code="dynamicContent.name.label" default="Name" /></span>
-
-                        <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentInstance}" field="name"/></span>
-
-                    </li>
-                </g:if>
-
-                <g:if test="${dynamicContentInstance?.value}">
+				<g:if test="${dynamicContentInstance?.name}">
+				<li class="fieldcontain">
+					<span id="name-label" class="property-label"><g:message code="dynamicContent.name.label" default="Name" /></span>
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentInstance}" field="name"/></span>
+				</li>
+				</g:if>
+				<g:if test="${dynamicContentInstance?.value}">
 				<li class="fieldcontain">
 					<span id="value-label" class="property-label"><g:message code="dynamicContent.value.label" default="Value" /></span>
 					<span class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></span>
 				</li>
 				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

@@ -1,5 +1,3 @@
-
-<%@ page import="com.dycon.DynamicContentPage; com.dycon.DynamicContent" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,19 +15,19 @@
 		</div>
 		<div id="list-dynamicContent" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-            <div id="list-dynamicContent-selection">
-                <label for="pageName">Choose Page: </label>
-                <g:select name="pageName"
-                      from="${DynamicContentPage.list()}"
-                      value="${currentPageId}"
-                      optionValue="name"
-                      optionKey="id" />
-                <label for="live">Live content: </label>
-                <g:checkBox name="live" checked="${live}" value="${live}" />
+			<div id="list-dynamicContent-selection">
+				<label for="pageName">Choose Page: </label>
+				<g:select name="pageName"
+					  from="${pages}"
+					  value="${currentPageId}"
+					  optionValue="name"
+					  optionKey="id" />
+				<label for="live">Live content: </label>
+				<g:checkBox name="live" checked="${live}" value="${live}" />
 
-            </div>
-            <g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="default.preview.label" /></g:link>
-            <g:link class="publish-page-content" name="publish-page-content" action="publish" id="${currentPageId}"><g:message code="default.publish.label" /></g:link>
+			</div>
+			<g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="default.preview.label" /></g:link>
+			<g:link class="publish-page-content" name="publish-page-content" action="publish" id="${currentPageId}"><g:message code="default.publish.label" /></g:link>
 
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -37,28 +35,24 @@
 			<table>
 				<thead>
 					<tr>
-					
-
 						<g:sortableColumn property="name" title="${message(code: 'dynamicContent.name.label', default: 'Name')}" />
-
 						<g:sortableColumn property="value" title="${message(code: 'dynamicContent.value.label', default: 'Value')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${dynamicContentInstanceList}" status="i" var="dynamicContentInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                        <g:if test="${live == true}">
-						    <td>${fieldValue(bean: dynamicContentInstance, field: "name")}</td>
-                        </g:if>
+						<g:if test="${live == true}">
+							<td>${fieldValue(bean: dynamicContentInstance, field: "name")}</td>
+						</g:if>
 
-                        <g:if test="${live != true}">
-                            <td><g:link action="show" id="${dynamicContentInstance.id}">${fieldValue(bean: dynamicContentInstance, field: "name")}</g:link></td>
-                        </g:if>
+						<g:if test="${live != true}">
+							<td><g:link action="show" id="${dynamicContentInstance.id}">${fieldValue(bean: dynamicContentInstance, field: "name")}</g:link></td>
+						</g:if>
 
 						<td>${dynamicContentInstance.value.trimLength(100)}</td>
-					
+
 					</tr>
 				</g:each>
 				</tbody>

@@ -1,5 +1,3 @@
-
-<%@ page import="com.dycon.DynamicContentPage" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,25 +20,21 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list dynamicContentPage">
-			
+
 				<g:if test="${dynamicContentPageInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="dynamicContentPage.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentPageInstance}" field="name"/></span>
-					
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentPageInstance}" field="name"/></span>
 				</li>
 				</g:if>
-			
+
 				<g:if test="${dynamicContentPageInstance?.path}">
 				<li class="fieldcontain">
 					<span id="path-label" class="property-label"><g:message code="dynamicContentPage.path.label" default="Path" /></span>
-					
-						<span class="property-value" aria-labelledby="path-label"><g:fieldValue bean="${dynamicContentPageInstance}" field="path"/></span>
-					
+					<span class="property-value" aria-labelledby="path-label"><g:fieldValue bean="${dynamicContentPageInstance}" field="path"/></span>
 				</li>
 				</g:if>
-			
+
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

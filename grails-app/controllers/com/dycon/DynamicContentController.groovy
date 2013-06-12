@@ -6,24 +6,19 @@ class DynamicContentController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-
     def dynamicContentService
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
-
+    static defaultAction = 'list'
 
     def list(Integer max,Boolean live,Integer pageId) {
-
 
         params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false
 
+        def pages = DynamicContentPage.findAll()
         def page
         if(!pageId){
-            def pages = DynamicContentPage.findAll()
-            if(pages?.size() > 0){
+            if(pages){
                 page = pages[0]
             }
         }else{
@@ -37,7 +32,7 @@ class DynamicContentController {
             content = DynamicContent.findAllByLiveAndPage(params.live,page,[max: params.max])
         }
 
-        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: content.size(), currentPageId: currentPageId, live: params.live]
+        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: content.size(), currentPageId: currentPageId, live: params.live, pages: pages]
     }
 
     def create() {
@@ -125,9 +120,7 @@ class DynamicContentController {
         }
     }
 
-
     def publish(Integer id){
-
 
         dynamicContentService.publish(id)
 

@@ -1,4 +1,3 @@
-<%@ page import="com.dycon.DynamicContentPage" %>
 <!DOCTYPE html>
 <html>
 	<head>
