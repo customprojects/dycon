@@ -11,7 +11,7 @@ class DyconGrailsPlugin {
 
     def documentation = "http://grails.org/plugin/dycon"
 
-//    def license = "APACHE"
-//    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
-//    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
+    def license = "APACHE"
+    def issueManagement = [system: 'GITHUB', url: 'https://github.com/customprojects/dycon/issues']
+    def scm = [url: 'https://github.com/customprojects/dycon']
 }
