@@ -1,6 +1,6 @@
 class DyconGrailsPlugin {
     // the plugin version
-    def version = "0.4-SNAPSHOT"
+    def version = "0.0.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.2 > *"
     // resources that are excluded from plugin packaging
@@ -12,10 +12,10 @@ class DyconGrailsPlugin {
 
     // TODO Fill in these fields
     def title = "Dycon Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "Tim Coombe"
+    def authorEmail = "tim.coombe@bskyb.com"
     def description = '''\
-Brief summary/description of the plugin.
+A plugin that allows very simple Content management for pages without requiring a full CMS.
 '''
 
     // URL to the plugin's documentation

@@ -20,7 +20,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        //mavenRepo "http://nexus.skynewsonline.bskyb.com/content/groups/public"
+
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -49,16 +49,3 @@ grails.project.dependency.resolution = {
 }
 
 grails.plugin.repos.distribution.myRepository = "http://nexus.skynewsonline.bskyb.com/content/groups/public/"
-
-/*grails.project.dependency.distribution = {
-    String serverRoot = 'http://nexus.skynewsonline.bskyb.com'
-    remoteRepository(id: 'internalPluginSnapshots',
-            url: serverRoot + '/content/groups/public/') {
-        authentication username: 'admin', password: 'admin123'
-    }
-}
-remoteRepository(id: 'internalPluginReleases',
-        url: serverRoot + '/content/groups/public/') {
-    authentication username: 'admin', password: 'admin123'
-}*/
-
