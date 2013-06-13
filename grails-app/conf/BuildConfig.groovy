@@ -20,5 +20,3 @@ grails.project.dependency.resolution = {
         }
     }
 }
-
-grails.plugin.repos.distribution.myRepository = "http://nexus.skynewsonline.bskyb.com/content/groups/public/"

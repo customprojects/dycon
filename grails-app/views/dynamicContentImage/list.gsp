@@ -26,8 +26,8 @@
 				<g:checkBox name="live" checked="${live}" value="${live}" />
 			</div>
 
-			<g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="default.preview.label" /></g:link>
-			<g:link class="publish-page-images" name="publish-page-images" action="publish" id="${currentPageId}"><g:message code="default.publish-images.label" /></g:link>
+			<g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="preview.label" /></g:link>
+			<g:link class="publish-page-images" name="publish-page-images" action="publish" id="${currentPageId}"><g:message code="publishImages.label" /></g:link>
 
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
