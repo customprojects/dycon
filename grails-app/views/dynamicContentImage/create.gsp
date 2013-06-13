@@ -1,8 +1,7 @@
-<%@ page import="com.dycon.DynamicContentImage" %>
 <!DOCTYPE html>
 <html>
 	<head>
-        <r:require module="fileuploader" />
+		<r:require module="fileuploader" />
  		<meta name="layout" content="dynamicContentLayout">
 		<g:set var="entityName" value="${message(code: 'dynamicContentImage.label', default: 'DynamicContentImage')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>

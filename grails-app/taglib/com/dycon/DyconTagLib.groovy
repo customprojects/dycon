@@ -8,7 +8,6 @@ class DyconTagLib {
 
     static namespace = "dycon"
 
-
     def page = { attrs ->
 
         if(attrs.name){
@@ -20,12 +19,10 @@ class DyconTagLib {
         }else{
             request.setAttribute("dycon-pageContent",[:])
             request.setAttribute("dycon-pageImages",[:])
-
         }
-
     }
 
-    def showLiveContent(HttpServletRequest request){
+    private boolean showLiveContent(HttpServletRequest request){
 
         if(!grailsApplication.config.dycon?.containsKey("previewDomain")){
             return true
@@ -33,7 +30,6 @@ class DyconTagLib {
 
         return !(request.getRequestURL().contains(grailsApplication.config.dycon.previewDomain))
     }
-
 
     def content = {  attrs ->
 
@@ -49,11 +45,9 @@ class DyconTagLib {
         }
 
         out << value
-
     }
 
     def image = {  attrs ->
-
 
         if(!request.getAttribute("dycon-pageImages")){
             out << "image tag - no page defined or no images defined for page"
@@ -67,9 +61,5 @@ class DyconTagLib {
         }
 
         out << value
-
     }
-
-
-
 }

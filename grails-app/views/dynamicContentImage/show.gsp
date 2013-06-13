@@ -1,5 +1,3 @@
-
-<%@ page import="com.dycon.DynamicContentImage" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,39 +21,31 @@
 			</g:if>
 			<ol class="property-list dynamicContentImage">
 
-                <g:if test="${dynamicContentImageInstance?.page}">
-                    <li class="fieldcontain">
-                        <span id="page-label" class="property-label"><g:message code="dynamicContentImage.page.label" default="Page" /></span>
+				<g:if test="${dynamicContentImageInstance?.page}">
+					<li class="fieldcontain">
+						<span id="page-label" class="property-label"><g:message code="dynamicContentImage.page.label" default="Page" /></span>
+						<span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentImageInstance?.page?.id}">${dynamicContentImageInstance?.page?.name?.encodeAsHTML()}</g:link></span>
+					</li>
+				</g:if>
 
-                        <span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentImageInstance?.page?.id}">${dynamicContentImageInstance?.page?.name?.encodeAsHTML()}</g:link></span>
-
-                    </li>
-                </g:if>
-			
 				<g:if test="${dynamicContentImageInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="dynamicContentImage.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentImageInstance}" field="name"/></span>
-					
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentImageInstance}" field="name"/></span>
 				</li>
 				</g:if>
-			
+
 				<g:if test="${dynamicContentImageInstance?.imageFile}">
 				<li class="fieldcontain">
 					<span id="file-label" class="property-label"><g:message code="dynamicContentImage.file.label" default="File" /></span>
-					
-						<span class="property-value" aria-labelledby="file-label"><g:fieldValue bean="${dynamicContentImageInstance}" field="imageFile"/></span>
-
+					<span class="property-value" aria-labelledby="file-label"><g:fieldValue bean="${dynamicContentImageInstance}" field="imageFile"/></span>
 				</li>
-                <li class="fieldcontain">
-                    <img class="large-preview-image" src="http://${grailsApplication.config.dycon.previewDomain}/${grailsApplication.config.dycon.imageWebPath}/${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}"/>
-                </li>
+				<li class="fieldcontain">
+					<img class="large-preview-image" src="http://${grailsApplication.config.dycon.previewDomain}/${grailsApplication.config.dycon.imageWebPath}/${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}"/>
+				</li>
 				</g:if>
 
-
-
-            </ol>
+			</ol>
 
 			<g:form>
 				<fieldset class="buttons">
