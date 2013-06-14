@@ -34,7 +34,8 @@ class DyconTagLib {
     def content = {  attrs ->
 
         if(!request.getAttribute("dycon-pageContent")){
-            out << "content tag - no page defined or no content defined for page"
+            def value =  attrs.default?:"no value or default provided"
+            out << value
             return
         }
 
@@ -50,7 +51,8 @@ class DyconTagLib {
     def image = {  attrs ->
 
         if(!request.getAttribute("dycon-pageImages")){
-            out << "image tag - no page defined or no images defined for page"
+            def value =  attrs.default?:"no value or default provided"
+            out << value
             return
         }
 

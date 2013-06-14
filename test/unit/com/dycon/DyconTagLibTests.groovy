@@ -55,7 +55,7 @@ class DyconTagLibTests {
     }
 
     void testContentMethodWithoutCallingPageTag(){
-         assertOutputEquals("content tag - no page defined or no content defined for page",'<dycon:content name="content-1" />')
+         assertOutputEquals("no value or default provided",'<dycon:content name="content-1" />')
     }
 
     void testContentMethodRendersCorrectValue(){
