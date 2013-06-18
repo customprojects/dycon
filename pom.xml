@@ -16,13 +16,6 @@
         <grails.version>2.2.1</grails.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>RepositoryProxy</name>
-            <url>http://nexus.skynewsonline.bskyb.com/content/groups/public</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
