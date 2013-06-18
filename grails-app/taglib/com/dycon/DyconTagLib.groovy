@@ -31,18 +31,33 @@ class DyconTagLib {
         return !(request.getRequestURL().contains(grailsApplication.config.dycon.previewDomain))
     }
 
-    def content = {  attrs ->
+    def content = {  attrs,body ->
 
         if(!request.getAttribute("dycon-pageContent")){
-            def value =  attrs.default?:"no value or default provided"
-            out << value
+
+            if(attrs.useBodyAsDefault){
+                out << body()
+            } else {
+                def value =  attrs.default?:"no value or default provided"
+                out << value
+            }
             return
         }
 
         def pageContent = request.getAttribute("dycon-pageContent")
         def value = "content tag - no name defined"
+
         if(attrs.name){
-            value = pageContent[attrs.name]?pageContent[attrs.name].value:attrs.default?:"value not found"
+            if(pageContent[attrs.name]){
+                value=pageContent[attrs.name].value
+            }else{
+                if(attrs.useBodyAsDefault){
+                    value = body()
+                }else{
+                    value = attrs.default?:"value not found"
+                }
+            }
+
         }
 
         out << value
