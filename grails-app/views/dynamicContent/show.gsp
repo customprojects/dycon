@@ -43,7 +43,12 @@
 				<g:if test="${dynamicContentInstance?.value}">
 				<li class="fieldcontain">
 					<span id="value-label" class="property-label"><g:message code="dynamicContent.value.label" default="Value" /></span>
-					<span class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></span>
+                    <g:if test="${dynamicContentInstance.value.replaceAll("[\n\r]", '') ==~ /.*<.*>.*<\/.*>.*/}">
+                        <pre class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></pre>
+                    </g:if>
+                    <g:else>
+                        <span class="property-value" aria-labelledby="value-label"><g:fieldValue bean="${dynamicContentInstance}" field="value"/></span>
+                    </g:else>
 				</li>
 				</g:if>
 			</ol>
