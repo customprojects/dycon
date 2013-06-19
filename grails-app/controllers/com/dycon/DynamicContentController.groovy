@@ -10,8 +10,9 @@ class DynamicContentController {
 
     static defaultAction = 'list'
 
-    def list(Boolean live,Integer pageId) {
+    def list(Integer max, Boolean live,Integer pageId) {
 
+        params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false
 
         def pages = DynamicContentPage.findAll()
@@ -28,10 +29,12 @@ class DynamicContentController {
         def currentPageId
         if(page){
             currentPageId = page.id
-            content = DynamicContent.findAllByLiveAndPage(params.live,page)
+            content = DynamicContent.findAllByLiveAndPage(params.live,page,params)
         }
 
-        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: content.size(), currentPageId: currentPageId, live: params.live, pages: pages]
+        def all = DynamicContent.findAllByLiveAndPage(params.live,page)
+
+        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: all.size(), currentPageId: currentPageId, live: params.live, pages: pages]
     }
 
     def create() {

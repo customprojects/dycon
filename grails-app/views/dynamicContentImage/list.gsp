@@ -45,7 +45,12 @@
 				<tbody>
 				<g:each in="${dynamicContentImageInstanceList}" status="i" var="dynamicContentImageInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<td><g:link action="show" id="${dynamicContentImageInstance.id}">${fieldValue(bean: dynamicContentImageInstance, field: "name")}</g:link></td>
+                        <g:if test="${live != true}">
+                            <td><g:link action="show" id="${dynamicContentImageInstance.id}">${fieldValue(bean: dynamicContentImageInstance, field: "name")}</g:link></td>
+                        </g:if>
+                        <g:if test="${live == true}">
+                            <td>${fieldValue(bean: dynamicContentImageInstance, field: "name")}</td>
+                        </g:if>
 						<td>${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}</td>
 						<td><img class="small-preview-image" src="http://${grailsApplication.config.dycon.previewDomain}/${grailsApplication.config.dycon.imageWebPath}/${fieldValue(bean: dynamicContentImageInstance, field: "imageFile")}"/></td>
 						<td><g:formatBoolean boolean="${dynamicContentImageInstance.live}" /></td>

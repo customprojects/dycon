@@ -9,6 +9,7 @@ class DynamicContentPageController {
     static defaultAction = 'list'
 
     def list() {
+
          [dynamicContentPageInstanceList: DynamicContentPage.list(params), dynamicContentPageInstanceTotal: DynamicContentPage.count()]
     }
 

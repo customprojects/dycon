@@ -43,7 +43,7 @@
 				<g:each in="${dynamicContentInstanceList}" status="i" var="dynamicContentInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-						<g:if test="${live == true}">
+
 							<td>${fieldValue(bean: dynamicContentInstance, field: "name")}</td>
 						</g:if>
 
