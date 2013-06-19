@@ -19,9 +19,8 @@ class DynamicContentImageController {
 
     static defaultAction = 'list'
 
-    def list(Integer max,Boolean live,Integer pageId) {
+    def list(Boolean live,Integer pageId) {
 
-        params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false
 
         def pages = DynamicContentPage.findAll()
@@ -38,7 +37,7 @@ class DynamicContentImageController {
         def currentPageId
         if(page){
             currentPageId = page.id
-            images = DynamicContentImage.findAllByLiveAndPage(params.live,page,[max: params.max])
+            images = DynamicContentImage.findAllByLiveAndPage(params.live,page)
         }
 
         [dynamicContentImageInstanceList: images, dynamicContentImageInstanceTotal: images.size(), currentPageId: currentPageId, live: params.live, pages: pages]

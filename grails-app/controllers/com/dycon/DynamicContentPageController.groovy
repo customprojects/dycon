@@ -8,9 +8,8 @@ class DynamicContentPageController {
 
     static defaultAction = 'list'
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [dynamicContentPageInstanceList: DynamicContentPage.list(params), dynamicContentPageInstanceTotal: DynamicContentPage.count()]
+    def list() {
+         [dynamicContentPageInstanceList: DynamicContentPage.list(params), dynamicContentPageInstanceTotal: DynamicContentPage.count()]
     }
 
     def create() {
@@ -81,6 +80,16 @@ class DynamicContentPageController {
 
     def delete(Long id) {
         def dynamicContentPageInstance = DynamicContentPage.get(id)
+
+        def content = DynamicContent.findAllByPage(dynamicContentPageInstance)
+        def images = DynamicContentImage.findAllByPage(dynamicContentPageInstance)
+
+        if(content || images){
+            flash.message = message(code: 'page.not.deleted.content.exists', args: [message(code: 'dynamicContentPage.label', default: 'DynamicContentPage'), id])
+            redirect(action: "show", id: id)
+            return
+        }
+
         if (!dynamicContentPageInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'dynamicContentPage.label', default: 'DynamicContentPage'), id])
             redirect(action: "list")
