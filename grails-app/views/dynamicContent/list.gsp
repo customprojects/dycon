@@ -58,7 +58,7 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${dynamicContentInstanceTotal}" />
+				<g:paginate total="${dynamicContentInstanceTotal}" params="[pageId: dynamicContentInstanceList[0]?.page?.id]" />
 			</div>
 		</div>
 	</body>
