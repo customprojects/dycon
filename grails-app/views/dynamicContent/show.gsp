@@ -34,12 +34,14 @@
 					<span class="property-value" aria-labelledby="page-label"><g:link controller="dynamicContentPage" action="show" id="${dynamicContentInstance?.page?.id}">${dynamicContentInstance?.page?.name?.encodeAsHTML()}</g:link></span>
 				</li>
 				</g:if>
+
 				<g:if test="${dynamicContentInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="dynamicContent.name.label" default="Name" /></span>
 					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${dynamicContentInstance}" field="name"/></span>
 				</li>
 				</g:if>
+
 				<g:if test="${dynamicContentInstance?.value}">
 				<li class="fieldcontain">
 					<span id="value-label" class="property-label"><g:message code="dynamicContent.value.label" default="Value" /></span>

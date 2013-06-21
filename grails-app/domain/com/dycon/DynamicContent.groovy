@@ -4,6 +4,7 @@ class DynamicContent {
 
     String name
     String value
+    Integer order
     Boolean live
 
     static constraints = {
@@ -11,6 +12,14 @@ class DynamicContent {
         value(blank:false, size: 1..4000)
     }
 
+    static mapping = {
+        sort order: 'asc'
+    }
+
     static belongsTo = [ page : DynamicContentPage ]
 
+    def beforeValidate() {
+        if(!order)
+            order = findAll().size() + 1
+    }
 }

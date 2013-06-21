@@ -1,5 +1,6 @@
 package com.dycon
 
+import grails.validation.ValidationException
 import org.springframework.dao.DataIntegrityViolationException
 
 class DynamicContentController {
@@ -10,35 +11,37 @@ class DynamicContentController {
 
     static defaultAction = 'list'
 
-    def list(Integer max, Boolean live,Integer pageId) {
+    def list(Integer max, Boolean live, Integer pageId, String filter) {
 
         params.max = Math.min(max ?: 10, 100)
         params.live = live ? true : false
+        params. offset = params.offset ?: 0;
+        params.filter = filter ? "%$filter%" : "%";
 
         def pages = DynamicContentPage.findAll()
         def page
-        if(!pageId){
-            if(pages){
+        if (!pageId) {
+            if (pages) {
                 page = pages[0]
             }
-        }else{
+        } else {
             page = DynamicContentPage.findById(pageId)
         }
 
         def content = []
         def currentPageId
-        if(page){
+        if (page) {
             currentPageId = page.id
-            content = DynamicContent.findAllByLiveAndPage(params.live,page,params)
+            content = DynamicContent.findAllByLiveAndPageAndNameIlike(params.live, page, params.filter, params)
         }
 
-        def all = DynamicContent.findAllByLiveAndPage(params.live,page)
+        def all = DynamicContent.findAllByLiveAndPageAndNameIlike(params.live, page, params.filter)
 
-        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: all.size(), currentPageId: currentPageId, live: params.live, pages: pages]
+        [dynamicContentInstanceList: content, dynamicContentInstanceTotal: all.size(), currentPageId: currentPageId, live: params.live, pages: pages, filter:filter]
     }
 
     def create() {
-        [dynamicContentInstance: new DynamicContent(params),mode:"create"]
+        [dynamicContentInstance: new DynamicContent(params), mode: "create"]
     }
 
     def save() {
@@ -71,7 +74,7 @@ class DynamicContentController {
             return
         }
 
-        [dynamicContentInstance: dynamicContentInstance,mode:"edit"]
+        [dynamicContentInstance: dynamicContentInstance, mode: "edit"]
     }
 
     def update(Long id, Long version) {
@@ -85,8 +88,8 @@ class DynamicContentController {
         if (version != null) {
             if (dynamicContentInstance.version > version) {
                 dynamicContentInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'dynamicContent.label', default: 'DynamicContent')] as Object[],
-                          "Another user has updated this DynamicContent while you were editing")
+                        [message(code: 'dynamicContent.label', default: 'DynamicContent')] as Object[],
+                        "Another user has updated this DynamicContent while you were editing")
                 render(view: "edit", model: [dynamicContentInstance: dynamicContentInstance])
                 return
             }
@@ -112,7 +115,12 @@ class DynamicContentController {
         }
 
         try {
+            def decrementSortOrder = DynamicContent.findAllByOrderGreaterThanAndPage(dynamicContentInstance.order, dynamicContentInstance.page);
+            decrementSortOrder.each {
+                it.order -= 1
+            }
             dynamicContentInstance.delete(flush: true)
+            decrementSortOrder*.save()
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'dynamicContent.label', default: 'DynamicContent'), id])
             redirect(action: "list")
         }
@@ -122,10 +130,34 @@ class DynamicContentController {
         }
     }
 
-    def publish(Integer id){
+    def publish(Integer id) {
 
         dynamicContentService.publish(id)
 
-        redirect(action: "list",params: [pageId: id])
+        redirect(action: "list", params: [pageId: id])
+    }
+
+    def move(Boolean live, Integer pageId, Integer contentId, Integer move) {
+        def chosenItemToMove = DynamicContent.get(contentId)
+        def itemToMove = DynamicContent.findByOrder(chosenItemToMove.order - move);
+
+        try {
+        if (itemToMove) {
+            if (chosenItemToMove.order && itemToMove.order) {
+                Integer tempOrder = chosenItemToMove.order
+                chosenItemToMove.order = itemToMove.order
+                itemToMove.order = tempOrder
+            }
+
+            chosenItemToMove.save(failOnError: true)
+            itemToMove.save(failOnError: true)
+        }
+
+    } catch (ValidationException e) {
+        flash.message = message(code: 'default.not.moved.message', args: [message(code: 'dynamicContent.label', default: 'DynamicContent'), contentId])
+    } finally {
+        redirect(action: "list", params: [pageId: pageId, live: live, offset: params.offset, filter:params.filter])
+    }
+
     }
 }
