@@ -1,5 +1,5 @@
 class DyconGrailsPlugin {
-    def version = "0.0.6"
+    def version = "0.0.7"
     def grailsVersion = "2.0 > *"
 
     def groupId = "csiPlugins"

@@ -63,8 +63,8 @@
 							<td>
                                 <g:if test='${!filter}'>
                                     <div class="ordering_container">
-                                        <g:link action="move" params="[move:'1', contentId:dynamicContentInstance.id, pageId:dynamicContentInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
-                                        <g:link action="move" params="[move:'-1', contentId:dynamicContentInstance.id, pageId:dynamicContentInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
+                                        <g:link action="move" params="[move:'-1', contentId:dynamicContentInstance.id, pageId:dynamicContentInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
+                                        <g:link action="move" params="[move:'1', contentId:dynamicContentInstance.id, pageId:dynamicContentInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
                                     </div>
                                 </g:if>
 

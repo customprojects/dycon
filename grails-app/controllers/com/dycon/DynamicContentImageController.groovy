@@ -198,11 +198,16 @@ class DynamicContentImageController {
     }
 
     def move(Boolean live, Integer pageId, Integer contentId, Integer move) {
+
+
         def chosenItemToMove = DynamicContentImage.get(contentId)
-        def itemToMove = DynamicContentImage.findByOrder(chosenItemToMove.order - move);
+        def page = DynamicContentPage.findById(pageId)
+
+        def itemToMove = DynamicContentImage.findByPageAndLiveAndOrder(page,false,chosenItemToMove.order + move);
+
         try {
             if (itemToMove) {
-                if (chosenItemToMove?.order && itemToMove?.order) {
+                if (chosenItemToMove.order && itemToMove.order) {
                     Integer tempOrder = chosenItemToMove.order
                     chosenItemToMove.order = itemToMove.order
                     itemToMove.order = tempOrder
@@ -210,13 +215,13 @@ class DynamicContentImageController {
 
                 chosenItemToMove.save(failOnError: true)
                 itemToMove.save(failOnError: true)
-
-
             }
         } catch (ValidationException e) {
-            flash.message = message(code: 'default.not.moved.message', args: [message(code: 'dynamicContentImage.label', default: 'DynamicContentImage'), contentId])
+            flash.message = message(code: 'default.not.moved.message', args: [message(code: 'dynamicContent.label', default: 'DynamicContent'), contentId])
         } finally {
             redirect(action: "list", params: [pageId: pageId, live: live, offset: params.offset, filter:params.filter])
         }
+
+
     }
 }

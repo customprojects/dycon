@@ -33,8 +33,9 @@ class DynamicContentService {
 
                 if(liveContent){
                     liveContent.value = it.value
+                    liveContent.order = it.order
                 }else{
-                    liveContent = new DynamicContent(live:true,page: page, name: it.name,value:it.value)
+                    liveContent = new DynamicContent(live:true,page: page, name: it.name,value:it.value,order: it.order)
                 }
 
                 liveContent.save(flush: true)
@@ -72,9 +73,10 @@ class DynamicContentService {
                 if(liveImage){
                     log.debug "Updating existing live image"
                     liveImage.imageFile = it.imageFile
+                    liveImage.order = it.order
                 }else{
                     log.debug "Creating new live image"
-                    liveImage = new DynamicContentImage(live:true,page: page, name: it.name,imageFile:it.imageFile)
+                    liveImage = new DynamicContentImage(live:true,page: page, name: it.name,imageFile:it.imageFile,order: it.order)
                 }
 
                 liveImage.save(flush: true)

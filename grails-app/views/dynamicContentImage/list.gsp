@@ -53,8 +53,8 @@
                         <g:if test="${live != true}">
                             <td>
                                 <div class="ordering_container">
-                                    <g:link action="move" params="[move:'1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
-                                    <g:link action="move" params="[move:'-1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
+                                    <g:link action="move" params="[move:'-1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
+                                    <g:link action="move" params="[move:'1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
                                 </div>
                                 <g:link action="show" id="${dynamicContentImageInstance.id}">${fieldValue(bean: dynamicContentImageInstance, field: "name")}</g:link>
                             </td>

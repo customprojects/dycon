@@ -19,7 +19,14 @@ class DynamicContentImage {
 
 
     def beforeValidate() {
-        if(!order)
-            order = findAll().size() + 1
+
+        if(!order){
+            def content = DynamicContentImage.findAllByPageAndLive(page,live, [sort: "order",order:"desc"])
+            if(content?.size() > 0){
+                order = content[0].order + 1
+            }else{
+                order = findAll().size() + 1
+            }
+        }
     }
 }

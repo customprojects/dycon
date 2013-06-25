@@ -41,6 +41,7 @@ class DynamicContentController {
     }
 
     def create() {
+
         [dynamicContentInstance: new DynamicContent(params), mode: "create"]
     }
 
@@ -115,7 +116,7 @@ class DynamicContentController {
         }
 
         try {
-            def decrementSortOrder = DynamicContent.findAllByOrderGreaterThanAndPage(dynamicContentInstance.order, dynamicContentInstance.page);
+            def decrementSortOrder = DynamicContent.findAllByOrderGreaterThanAndPageAndLive(dynamicContentInstance.order, dynamicContentInstance.page,false);
             decrementSortOrder.each {
                 it.order -= 1
             }
@@ -138,26 +139,28 @@ class DynamicContentController {
     }
 
     def move(Boolean live, Integer pageId, Integer contentId, Integer move) {
+
         def chosenItemToMove = DynamicContent.get(contentId)
-        def itemToMove = DynamicContent.findByOrder(chosenItemToMove.order - move);
+        def page = DynamicContentPage.findById(pageId)
+
+        def itemToMove = DynamicContent.findByPageAndLiveAndOrder(page,false,chosenItemToMove.order + move);
 
         try {
-        if (itemToMove) {
-            if (chosenItemToMove.order && itemToMove.order) {
-                Integer tempOrder = chosenItemToMove.order
-                chosenItemToMove.order = itemToMove.order
-                itemToMove.order = tempOrder
+            if (itemToMove) {
+                if (chosenItemToMove.order && itemToMove.order) {
+                    Integer tempOrder = chosenItemToMove.order
+                    chosenItemToMove.order = itemToMove.order
+                    itemToMove.order = tempOrder
+                }
+
+                chosenItemToMove.save(failOnError: true)
+                itemToMove.save(failOnError: true)
             }
-
-            chosenItemToMove.save(failOnError: true)
-            itemToMove.save(failOnError: true)
+        } catch (ValidationException e) {
+            flash.message = message(code: 'default.not.moved.message', args: [message(code: 'dynamicContent.label', default: 'DynamicContent'), contentId])
+        } finally {
+            redirect(action: "list", params: [pageId: pageId, live: live, offset: params.offset, filter:params.filter])
         }
-
-    } catch (ValidationException e) {
-        flash.message = message(code: 'default.not.moved.message', args: [message(code: 'dynamicContent.label', default: 'DynamicContent'), contentId])
-    } finally {
-        redirect(action: "list", params: [pageId: pageId, live: live, offset: params.offset, filter:params.filter])
-    }
 
     }
 }

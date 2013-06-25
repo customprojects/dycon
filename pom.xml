@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>csiPlugins</groupId>
     <artifactId>dycon</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <packaging>grails-plugin</packaging>
 
 
@@ -16,6 +16,13 @@
         <grails.version>2.2.1</grails.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>RepositoryProxy</name>
+            <url>http://nexus.skynewsonline.bskyb.com/content/groups/public</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
