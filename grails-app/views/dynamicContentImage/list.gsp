@@ -22,14 +22,14 @@
 						  value="${currentPageId}"
 						  optionValue="name"
 						  optionKey="id" />
-				<label for="live">Live content: </label>
+				<label id="liveContentLabel" for="live">Live content: </label>
 				<g:checkBox name="live" checked="${live}" value="${live}" />
 			</div>
 
             <g:form ID="search" action="list" params="[pageId: currentPageId, live:live]">
                 <input type="text" name="filter" value="${filter}" />
                 <g:link action="list" params="[pageId: currentPageId, live:live]" class="search_reset">reset</g:link>
-                <input type="submit" value="Search" />
+                <input id="search-button" type="submit" value="Search" />
             </g:form>
 
 			<g:link target="_blank" class="preview-page" name="preview-page" controller="dynamicContentPage" action="preview" id="${currentPageId}"><g:message code="preview.label" /></g:link>
@@ -52,10 +52,12 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <g:if test="${live != true}">
                             <td>
-                                <div class="ordering_container">
-                                    <g:link action="move" params="[move:'-1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
-                                    <g:link action="move" params="[move:'1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
-                                </div>
+                                <g:if test='${!filter}'>
+                                    <div class="ordering_container">
+                                        <g:link action="move" params="[move:'-1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class="ordering_up" >up</div></g:link>
+                                        <g:link action="move" params="[move:'1', contentId:dynamicContentImageInstance.id, pageId:dynamicContentImageInstance.page.id, live:live, offset:params.offset, filter:filter]"><div class= "ordering_down" >down</div></g:link>
+                                    </div>
+                                </g:if>
                                 <g:link action="show" id="${dynamicContentImageInstance.id}">${fieldValue(bean: dynamicContentImageInstance, field: "name")}</g:link>
                             </td>
                         </g:if>

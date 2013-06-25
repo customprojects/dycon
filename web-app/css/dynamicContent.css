@@ -143,7 +143,7 @@ img {
 
 #search {
     position: absolute;
-    top: 0;
+    top: -5px;
     right: 26px;
 }
 
@@ -155,9 +155,10 @@ img {
     font-size: 0.1px;
     text-indent: -99999px;
     position: absolute;
-    top: 1px;
-    right: 72px;
+    top: 3px;
+    right: 82px;
 }
+
 
 /* NAVIGATION MENU */
 
@@ -628,8 +629,12 @@ a.skip {
     margin-left: 25px;
     margin-top: 10px;
     float: left;
-    width: 350px;
+    width: 450px;
 
+}
+
+#liveContentLabel{
+   margin-left: 23px;
 }
 
 .publish-page-content, .publish-page-images, .preview-page{
@@ -644,6 +649,14 @@ a.skip {
     margin-top: 5px;
     padding: 5px;
     text-decoration: none;
+}
+
+#search-button{
+    background-color: #CCCCCC;
+    border-color: #666666;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
 }
 
 #au-imageuploader{
