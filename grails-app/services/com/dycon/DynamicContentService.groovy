@@ -87,7 +87,7 @@ class DynamicContentService {
             allLiveImages.each {it ->
 
                 def nonLiveImage = DynamicContentImage.findByLiveAndPageAndName(false,page,it.name)
-
+                            http://localhost:8080/
                 if(!nonLiveImage){
                     it.delete()
                 }

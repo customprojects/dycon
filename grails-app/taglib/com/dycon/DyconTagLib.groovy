@@ -11,9 +11,9 @@ class DyconTagLib {
     def page = { attrs ->
 
         if(attrs.name){
-            def pageContent = dynamicContentService.getPageContent("Home",showLiveContent(request))
+            def pageContent = dynamicContentService.getPageContent(attrs.name,showLiveContent(request))
             request.setAttribute("dycon-pageContent",pageContent)
-            def pageImages = dynamicContentService.getPageImages("Home",showLiveContent(request))
+            def pageImages = dynamicContentService.getPageImages(attrs.name,showLiveContent(request))
             request.setAttribute("dycon-pageImages",pageImages)
 
         }else{
