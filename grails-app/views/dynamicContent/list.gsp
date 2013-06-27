@@ -27,7 +27,7 @@
 				<g:checkBox name="live" checked="${live}" value="${live}" />
 			</div>
             <g:form ID="search" action="list" params="[pageId: currentPageId, live:live]">
-                <input type="text" name="filter" value="${filter}" />
+                <input type="text" name="filter" value="${filter}" placeholder="search content..." />
                 <g:link action="list" params="[pageId: currentPageId, live:live]" class="search_reset">reset</g:link>
                 <input id="search-button" type="submit" value="Search" />
             </g:form>
