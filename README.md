@@ -10,11 +10,15 @@ Add the following configuration to your application:
 
 ```
 dycon { 
-        imageUploadDirectory = '/path_to_image_store'<br/>
-        imageWebPath = '/path_to_image_url'<br/>
+        imageUploadDirectory = '/path_to_image_store'
+        imageWebPath = '/path_to_image_url'
         previewDomain = 'preview.yoursite.com' //a url for serving un-published content
       }
 ```
+The imageUploadDirectory needs to be writable by the user running the application.<br/>
+The imageWebPath needs to be configured in your web server (i.e. Apache Virtual Host) to point to the imageUploadDirectory and
+bypass the grails application.
+
 Once the plugin is included in your project you can navigate to the content management pages at the url http://www.yoursite.com/dycon. 
 Access to this url and the preview url configure above should be restricted from outside of your organisation.
 
